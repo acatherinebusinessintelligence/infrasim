@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InfraSim</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <header id="app-header" class="app-header" hidden>
+      <div>
+        <p class="eyebrow">InfraSim</p>
+        <strong>Simulador formativo</strong>
+      </div>
+      <nav class="app-nav">
+        <button id="nav-dashboard" type="button" class="nav-link">Panel</button>
+        <button id="nav-history" type="button" class="nav-link">Historial</button>
+        <button id="logout-button" type="button" class="nav-link">Cerrar sesión</button>
+      </nav>
+    </header>
+
+    <section id="view-login" class="view-shell">
+      <article class="login-card">
+        <p class="eyebrow">Acceso del estudiante</p>
+        <h1>InfraSim</h1>
+        <p class="hero-copy">
+          Ingresa con tu correo para realizar simulacros, guardar tus intentos y ver qué competencias debes reforzar.
+        </p>
+        <p class="disclaimer">
+          Este acceso identifica tu progreso dentro del simulador. No reemplaza un sistema institucional de autenticación.
+        </p>
+        <form id="login-form" class="login-form">
+          <label class="select-field">
+            Correo institucional o personal
+            <input id="login-email" type="email" name="email" autocomplete="email" required placeholder="aleja@uniminuto.edu">
+          </label>
+          <button type="submit" class="primary-action">INGRESAR AL SIMULADOR</button>
+          <p id="login-message" class="form-message" aria-live="polite"></p>
+        </form>
+      </article>
+    </section>
+
+    <section id="view-dashboard" class="view-shell" hidden>
+      <div id="dashboard-output" class="dashboard-grid"></div>
+    </section>
+
+    <main id="view-simulator" class="exam-layout" hidden>
+      <section class="hero-panel">
+        <p class="eyebrow">InfraSim</p>
+        <h1>Simulador de Gestión de Infraestructura TI</h1>
+        <p class="hero-copy">
+          Recibirás un caso técnico generado aleatoriamente. Analiza la información y responde 10 preguntas.
+        </p>
+        <button id="draw-button" type="button" class="primary-action">SORTEAR MI CASO</button>
+      </section>
+
+      <section id="draw-panel" class="draw-panel" hidden>
+        <div id="roulette" class="roulette" aria-live="polite">Preparando sorteo</div>
+        <div id="draw-result" class="draw-result"></div>
+      </section>
+
+      <section id="case-panel" class="case-panel" hidden>
+        <div class="section-heading">
+          <span>!</span>
+          <div>
+            <h2>Información del caso</h2>
+            <p>Lee el contexto antes de iniciar el simulacro.</p>
+          </div>
+        </div>
+        <div id="scenario-output" class="scenario-output"></div>
+      </section>
+
+      <section id="quiz-panel" class="quiz-panel" hidden>
+        <div class="quiz-header">
+          <h2>Simulacro</h2>
+          <span id="quiz-progress">1 / 10</span>
+        </div>
+        <div class="progress-bar">
+          <div id="quiz-progress-fill"></div>
+        </div>
+        <div id="question-view" class="question-view"></div>
+        <div class="action-row">
+          <button id="prev-question" type="button" class="secondary-action">Anterior</button>
+          <button id="next-question" type="button" class="primary-action">Siguiente</button>
+          <button id="finish-quiz" type="button" class="primary-action" hidden>FINALIZAR SIMULACRO</button>
+        </div>
+      </section>
+    </main>
+
+    <section id="view-result" class="view-shell" hidden>
+      <div id="result-output" class="dashboard-grid"></div>
+    </section>
+
+    <section id="view-history" class="view-shell" hidden>
+      <div id="history-output" class="dashboard-grid"></div>
+    </section>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

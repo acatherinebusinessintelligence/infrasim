@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+backend/
+instance/
+__pycache__/
+node_modules/
