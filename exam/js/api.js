@@ -71,3 +71,18 @@ async function saveExamAnswer(questionId, answer) {
   });
   return parseApiResponse(response, "No fue posible guardar la respuesta.");
 }
+
+async function finishExamAttempt() {
+  const response = await fetch(`${API_BASE_URL}/exam/finish`, {
+    method: "POST",
+    credentials: "include",
+  });
+  return parseApiResponse(response, "No fue posible finalizar el examen.");
+}
+
+async function fetchExamResult() {
+  const response = await fetch(`${API_BASE_URL}/exam/result`, {
+    credentials: "include",
+  });
+  return parseApiResponse(response, "No fue posible consultar el resultado.");
+}

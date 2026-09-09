@@ -11,6 +11,7 @@ const progressFill = document.querySelector("#progressFill");
 const questionContainer = document.querySelector("#questionContainer");
 const prevQuestion = document.querySelector("#prevQuestion");
 const nextQuestion = document.querySelector("#nextQuestion");
+const finishExam = document.querySelector("#finishExam");
 let currentQuiz = null;
 let currentQuestionIndex = 0;
 let savedAnswers = {};
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   loginView.addEventListener("submit", handleLogin);
   prevQuestion.addEventListener("click", () => moveQuestion(-1));
   nextQuestion.addEventListener("click", () => moveQuestion(1));
+  finishExam.addEventListener("click", handleFinish);
   try {
     const state = await fetchExamState();
     renderState(state);
@@ -54,7 +56,7 @@ function renderLoginResult(payload) {
     return;
   }
   if (payload.status === "completed") {
-    renderCompleted(payload.release_results);
+    renderCompleted(payload);
     return;
   }
   renderUnavailable("El examen no se encuentra disponible.");
@@ -75,7 +77,7 @@ function renderState(payload) {
     return;
   }
   if (payload.state === "completed") {
-    renderCompleted(payload.release_results);
+    renderCompleted(payload);
     return;
   }
   if (payload.state === "exam_closed_attempt_in_progress") {
@@ -110,16 +112,17 @@ function renderInProgress(scenario = null) {
   }
 }
 
-function renderCompleted(releaseResults) {
+function renderCompleted(payload = {}) {
   loginView.hidden = true;
   statusView.hidden = false;
+  scenarioView.hidden = true;
+  quizView.hidden = true;
   statusMessage.className = "";
-  statusTitle.textContent = "EVALUACIÓN ENVIADA";
-  statusMessage.textContent = "Tu intento ya fue registrado.";
+  statusTitle.textContent = "EVALUACIÓN ENVIADA CORRECTAMENTE";
+  statusMessage.textContent = "Tu intento ha sido registrado. No podrás modificar tus respuestas.";
   statusActions.innerHTML = "";
-  if (releaseResults) {
-    const button = addButton("VER RESULTADO", () => {}, "secondary-action");
-    button.disabled = true;
+  if (payload.release_results && payload.result) {
+    renderReleasedResult(payload.result);
   }
 }
 
@@ -223,6 +226,7 @@ function renderQuiz() {
   progressFill.style.width = `${((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100}%`;
   prevQuestion.disabled = currentQuestionIndex === 0;
   nextQuestion.disabled = currentQuestionIndex === currentQuiz.questions.length - 1;
+  finishExam.disabled = false;
   questionContainer.innerHTML = `
     <p class="eyebrow">${escapeHtml(question.competency)}</p>
     <h2>${escapeHtml(questionProgress.textContent)}</h2>
@@ -262,6 +266,64 @@ async function persistAnswer(question, value) {
   } catch (error) {
     statusMessage.textContent = error.message || "No fue posible guardar la respuesta.";
   }
+}
+
+async function handleFinish() {
+  if (!currentQuiz) return;
+  const confirmed = window.confirm(
+    "¿Deseas finalizar y enviar tu evaluación?\n\nDespués de enviarla no podrás modificar tus respuestas."
+  );
+  if (!confirmed) return;
+
+  finishExam.disabled = true;
+  try {
+    const payload = await finishExamAttempt();
+    if (payload.status === "incomplete") {
+      renderIncompleteFinish(payload);
+      finishExam.disabled = false;
+      return;
+    }
+    renderCompleted(payload);
+  } catch (error) {
+    statusMessage.className = "error";
+    statusMessage.textContent = error.message || "No fue posible finalizar el examen.";
+    finishExam.disabled = false;
+  }
+}
+
+function renderIncompleteFinish(payload) {
+  statusView.hidden = false;
+  statusTitle.textContent = "Tu evaluación aún no está completa.";
+  statusMessage.className = "error";
+  statusMessage.textContent = `Te faltan ${payload.missing.length} preguntas por responder. Respondidas: ${payload.answered} de ${payload.total}.`;
+  statusActions.innerHTML = "";
+  const firstMissing = payload.missing[0];
+  if (firstMissing && currentQuiz) {
+    addButton("IR A PREGUNTA PENDIENTE", () => {
+      currentQuestionIndex = currentQuiz.questions.findIndex((question) => question.id === firstMissing);
+      renderQuiz();
+      questionContainer.scrollIntoView({behavior: "smooth", block: "start"});
+    }, "secondary-action");
+  }
+}
+
+function renderReleasedResult(result) {
+  const summary = document.createElement("div");
+  summary.className = "result-summary";
+  const correctAnswers = result["correct" + "_answers"];
+  summary.innerHTML = `
+    <p><strong>Puntaje:</strong> ${escapeHtml(result.score)}%</p>
+    <p><strong>Correctas:</strong> ${escapeHtml(correctAnswers)} de ${escapeHtml(result.total_questions)}</p>
+    <div class="competency-grid">
+      ${(result.competencies || []).map((item) => `
+        <div>
+          <strong>${escapeHtml(item.competency.toUpperCase())}</strong>
+          <span>${escapeHtml(item.correct)} / ${escapeHtml(item.total)} - ${escapeHtml(item.percentage)}%</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+  statusActions.appendChild(summary);
 }
 
 function moveQuestion(offset) {
