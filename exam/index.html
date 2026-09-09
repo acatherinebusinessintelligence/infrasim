@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Evaluacion - Gestion de Infraestructura TI</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <main class="exam-shell">
+      <section class="exam-card">
+        <p class="eyebrow">InfraSim Exam</p>
+        <h1>EVALUACIÓN — GESTIÓN DE INFRAESTRUCTURA TI</h1>
+        <p class="lead">Ingresa con tu correo registrado y el código individual entregado para esta evaluación.</p>
+
+        <form id="loginView" class="exam-form" autocomplete="off">
+          <label>
+            Correo
+            <input id="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Código individual
+            <input id="accessCode" type="text" autocomplete="off" required placeholder="EXM-XXXXXX">
+          </label>
+          <button type="submit" class="primary-action">VALIDAR ACCESO</button>
+        </form>
+
+        <section id="statusView" class="status-view" hidden>
+          <h2 id="statusTitle"></h2>
+          <p id="statusMessage"></p>
+          <div id="statusActions" class="action-row"></div>
+        </section>
+
+        <section id="scenarioView" class="scenario-view" hidden></section>
+        <section id="quizView" class="quiz-layout" hidden>
+          <article class="question-panel">
+            <div class="quiz-status">
+              <span id="questionProgress">Pregunta 1 de 10</span>
+              <span id="answeredProgress">Respondidas: 0 / 10</span>
+            </div>
+            <div class="progress-bar"><div id="progressFill"></div></div>
+            <div id="questionContainer"></div>
+            <div class="action-row">
+              <button id="prevQuestion" type="button" class="secondary-action">Anterior</button>
+              <button id="nextQuestion" type="button" class="primary-action">Siguiente</button>
+              <button id="finishExam" type="button" class="secondary-action" disabled>FINALIZAR EXAMEN</button>
+            </div>
+          </article>
+          <aside class="formula-panel">
+            <h2>FÓRMULAS DE APOYO</h2>
+            <p>Consulta las fórmulas disponibles y determina cuál corresponde al análisis planteado.</p>
+            <dl>
+              <dt>DISPONIBILIDAD</dt>
+              <dd>Disponibilidad (%) = ((Tiempo total - Tiempo de indisponibilidad) / Tiempo total) × 100</dd>
+              <dt>MTTR</dt>
+              <dd>MTTR = Tiempo total de recuperación / Número de incidentes</dd>
+              <dt>UTILIZACIÓN</dt>
+              <dd>Utilización (%) = Recurso utilizado / Capacidad total × 100</dd>
+              <dt>CAPACIDAD LIBRE</dt>
+              <dd>Capacidad libre = Capacidad total - Capacidad utilizada</dd>
+              <dt>PROYECCIÓN DE ALMACENAMIENTO</dt>
+              <dd>Meses restantes = Capacidad libre / Crecimiento promedio mensual</dd>
+              <dt>CRECIMIENTO PROMEDIO</dt>
+              <dd>Crecimiento promedio = Suma de crecimiento de periodos / Número de periodos</dd>
+            </dl>
+          </aside>
+        </section>
+      </section>
+    </main>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

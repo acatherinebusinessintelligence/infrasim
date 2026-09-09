@@ -104,6 +104,25 @@ body {
   gap: 1rem;
 }
 
+.exam-access-block {
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.exam-access-block p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.exam-link {
+  display: inline-block;
+  justify-self: start;
+  text-decoration: none;
+}
+
 .featured-card {
   border-color: var(--accent);
 }

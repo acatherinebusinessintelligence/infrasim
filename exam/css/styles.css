@@ -1,0 +1,265 @@
+:root {
+  --bg: #f3f6f8;
+  --surface: #ffffff;
+  --text: #17212b;
+  --muted: #5e6d7a;
+  --border: #d7e0e7;
+  --accent: #1f6f8b;
+  --accent-dark: #165168;
+  --danger: #9f3a38;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.exam-shell {
+  display: grid;
+  margin: 0 auto;
+  max-width: 780px;
+  min-height: 100vh;
+  padding: 2rem 1.25rem;
+  place-items: center;
+}
+
+.exam-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(1.55rem, 4vw, 2.35rem);
+  letter-spacing: 0;
+  line-height: 1.1;
+  margin: 0;
+}
+
+h2,
+p {
+  margin-top: 0;
+}
+
+.lead,
+#statusMessage {
+  color: var(--muted);
+}
+
+.exam-form {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  color: var(--text);
+  display: grid;
+  font-weight: 700;
+  gap: 0.35rem;
+}
+
+input {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font: inherit;
+  padding: 0.75rem;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.primary-action {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.secondary-action {
+  background: #e7eef3;
+  color: var(--accent-dark);
+}
+
+.status-view {
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 0.85rem;
+  padding-top: 1rem;
+}
+
+.status-view[hidden],
+.scenario-view[hidden],
+.quiz-layout[hidden] {
+  display: none;
+}
+
+.scenario-view {
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.scenario-section {
+  background: #f7fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.scenario-section h3 {
+  margin: 0 0 0.6rem;
+}
+
+.scenario-section ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.metric-grid {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+.metric-grid div {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.7rem;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.quiz-layout {
+  align-items: start;
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  padding-top: 1rem;
+}
+
+.question-panel,
+.formula-panel {
+  background: #f7fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.quiz-status {
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 700;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.progress-bar {
+  background: #dce5ec;
+  border-radius: 999px;
+  height: 0.55rem;
+  margin: 0.8rem 0 1rem;
+  overflow: hidden;
+}
+
+#progressFill {
+  background: var(--accent);
+  height: 100%;
+  width: 10%;
+}
+
+.answer-options {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.answer-options label {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-weight: 400;
+  padding: 0.75rem;
+}
+
+textarea {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
+  min-height: 7rem;
+  padding: 0.75rem;
+  resize: vertical;
+  width: 100%;
+}
+
+.formula-panel h2 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.formula-panel dl {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.formula-panel dt {
+  font-weight: 700;
+}
+
+.formula-panel dd {
+  color: var(--muted);
+  margin: 0;
+}
+
+.error {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .quiz-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .formula-panel {
+    max-height: 18rem;
+    overflow: auto;
+  }
+}

@@ -1,4 +1,17 @@
-const API_BASE_URL = "https://acatherinem.pythonanywhere.com/api";
+const API_ENVIRONMENTS = {
+  development: "http://127.0.0.1:5000/api",
+  production: "https://acatherinem.pythonanywhere.com/api",
+};
+
+function resolveApiEnvironment() {
+  const host = window.location.hostname;
+  if (host === "127.0.0.1" || host === "localhost") {
+    return "development";
+  }
+  return "production";
+}
+
+const API_BASE_URL = API_ENVIRONMENTS[resolveApiEnvironment()];
 const SESSION_KEY = "infrasim_session";
 
 
