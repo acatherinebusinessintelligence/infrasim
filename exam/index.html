@@ -31,6 +31,12 @@
           <div id="statusActions" class="action-row"></div>
         </section>
 
+        <section id="integrityBanner" class="integrity-banner" hidden aria-live="assertive">
+          <strong id="integrityTitle"></strong>
+          <span id="integrityMessage"></span>
+          <button id="fullscreenRetry" type="button" class="secondary-action" hidden>VOLVER A PANTALLA COMPLETA</button>
+        </section>
+
         <section id="scenarioView" class="scenario-view" hidden></section>
         <section id="quizView" class="quiz-layout" hidden>
           <article class="question-panel">
@@ -68,6 +74,7 @@
       </section>
     </main>
     <script src="js/api.js"></script>
+    <script src="js/exam-integrity.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

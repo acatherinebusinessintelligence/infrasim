@@ -46,10 +46,12 @@ async function fetchExamState() {
   return parseApiResponse(response, "No fue posible consultar el estado.");
 }
 
-async function startExam() {
+async function startExam(integrityTermsAccepted = false) {
   const response = await fetch(`${API_BASE_URL}/exam/start`, {
     method: "POST",
     credentials: "include",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({integrity_terms_accepted: Boolean(integrityTermsAccepted)}),
   });
   return parseApiResponse(response, "No fue posible iniciar el examen.");
 }
@@ -78,6 +80,20 @@ async function finishExamAttempt() {
     credentials: "include",
   });
   return parseApiResponse(response, "No fue posible finalizar el examen.");
+}
+
+async function recordExamIntegrityEvent(eventType, metadata = {}) {
+  const response = await fetch(`${API_BASE_URL}/exam/integrity-event`, {
+    method: "POST",
+    credentials: "include",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      event_type: eventType,
+      client_timestamp: new Date().toISOString(),
+      metadata,
+    }),
+  });
+  return parseApiResponse(response, "No fue posible registrar el evento de integridad.");
 }
 
 async function fetchExamResult() {

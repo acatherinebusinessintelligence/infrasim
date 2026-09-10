@@ -12,15 +12,21 @@ const questionContainer = document.querySelector("#questionContainer");
 const prevQuestion = document.querySelector("#prevQuestion");
 const nextQuestion = document.querySelector("#nextQuestion");
 const finishExam = document.querySelector("#finishExam");
+const integrityBanner = document.querySelector("#integrityBanner");
+const integrityTitle = document.querySelector("#integrityTitle");
+const integrityMessage = document.querySelector("#integrityMessage");
+const fullscreenRetry = document.querySelector("#fullscreenRetry");
 let currentQuiz = null;
 let currentQuestionIndex = 0;
 let savedAnswers = {};
 
 document.addEventListener("DOMContentLoaded", async () => {
+  installExamIntegrity();
   loginView.addEventListener("submit", handleLogin);
   prevQuestion.addEventListener("click", () => moveQuestion(-1));
   nextQuestion.addEventListener("click", () => moveQuestion(1));
   finishExam.addEventListener("click", handleFinish);
+  fullscreenRetry.addEventListener("click", requestExamFullscreen);
   try {
     const state = await fetchExamState();
     renderState(state);
@@ -88,16 +94,37 @@ function renderState(payload) {
 }
 
 function renderAuthorized(examName) {
+  deactivateExamIntegrity();
   loginView.hidden = true;
   statusView.hidden = false;
   statusMessage.className = "";
-  statusTitle.textContent = "Acceso autorizado";
+  statusTitle.textContent = "CONDICIONES DE PRESENTACION DEL EXAMEN";
   statusMessage.textContent = `Vas a presentar la evaluación de Gestión de Infraestructura TI. Dispones de un único intento. Al iniciar recibirás un único caso.`;
   statusActions.innerHTML = "";
-  addButton("INICIAR EXAMEN", handleStart, "primary-action");
+  const termsBox = document.createElement("div");
+  termsBox.className = "terms-box";
+  termsBox.innerHTML = `
+    <ul class="terms-list">
+      <li>Presentar el examen en pantalla completa.</li>
+      <li>No cambiar de pestana o ventana durante el intento.</li>
+      <li>No copiar, cortar, pegar, imprimir ni usar menu contextual.</li>
+      <li>Las alertas de integridad quedan registradas para revision docente.</li>
+    </ul>
+    <label class="terms-check">
+      <input id="integrityTerms" type="checkbox">
+      Acepto las condiciones de presentacion del examen.
+    </label>
+  `;
+  statusActions.appendChild(termsBox);
+  const button = addButton("ACEPTAR E INICIAR", handleStart, "primary-action");
+  button.disabled = true;
+  termsBox.querySelector("#integrityTerms").addEventListener("change", (event) => {
+    button.disabled = !event.currentTarget.checked;
+  });
 }
 
 function renderInProgress(scenario = null) {
+  activateExamIntegrity();
   loginView.hidden = true;
   statusView.hidden = false;
   statusMessage.className = "";
@@ -113,6 +140,7 @@ function renderInProgress(scenario = null) {
 }
 
 function renderCompleted(payload = {}) {
+  deactivateExamIntegrity();
   loginView.hidden = true;
   statusView.hidden = false;
   scenarioView.hidden = true;
@@ -144,7 +172,10 @@ function renderUnavailable(message) {
 
 async function handleStart() {
   try {
-    const payload = await startExam();
+    const fullscreen = await requestExamFullscreen();
+    if (!fullscreen.ok) return;
+    const payload = await startExam(true);
+    activateExamIntegrity();
     statusMessage.className = "";
     renderStarted();
     if (payload.scenario) {
@@ -167,6 +198,7 @@ function addButton(label, handler, className) {
 }
 
 function showLogin() {
+  deactivateExamIntegrity();
   loginView.hidden = false;
   statusView.hidden = true;
   scenarioView.hidden = true;
@@ -209,6 +241,7 @@ function renderQuestionsPending() {
 
 async function loadQuiz() {
   try {
+    activateExamIntegrity();
     currentQuiz = await fetchExamQuiz();
     currentQuestionIndex = 0;
     renderQuiz();
@@ -219,6 +252,7 @@ async function loadQuiz() {
 
 function renderQuiz() {
   if (!currentQuiz || !currentQuiz.questions.length) return;
+  activateExamIntegrity();
   quizView.hidden = false;
   const question = currentQuiz.questions[currentQuestionIndex];
   questionProgress.textContent = `Pregunta ${question.number} de ${currentQuiz.questions.length}`;
@@ -324,6 +358,55 @@ function renderReleasedResult(result) {
     </div>
   `;
   statusActions.appendChild(summary);
+}
+
+function installExamIntegrity() {
+  if (!window.ExamIntegrity) return;
+  window.ExamIntegrity.install({
+    recordEvent: recordExamIntegrityEvent,
+    onWarning: showIntegrityWarning,
+  });
+}
+
+function activateExamIntegrity() {
+  if (!window.ExamIntegrity) return;
+  window.ExamIntegrity.activate();
+  reportReloadIfNeeded();
+  window.ExamIntegrity.markInProgressForReload();
+}
+
+function deactivateExamIntegrity() {
+  if (!window.ExamIntegrity) return;
+  window.ExamIntegrity.deactivate();
+  hideIntegrityWarning();
+}
+
+async function requestExamFullscreen() {
+  if (!window.ExamIntegrity) return {ok: true, unsupported: false};
+  return window.ExamIntegrity.requestFullscreen();
+}
+
+function reportReloadIfNeeded() {
+  if (!window.ExamIntegrity || !window.ExamIntegrity.consumeReloadMarker()) return;
+  recordExamIntegrityEvent("RELOAD_DETECTED", {
+    fullscreen_active: Boolean(document.fullscreenElement),
+    document_hidden: Boolean(document.hidden),
+    viewport_width: window.innerWidth,
+    viewport_height: window.innerHeight,
+    event_source: "reload",
+  }).catch(() => {});
+}
+
+function showIntegrityWarning({title, message, showFullscreenButton}) {
+  integrityBanner.hidden = false;
+  integrityTitle.textContent = title;
+  integrityMessage.textContent = message;
+  fullscreenRetry.hidden = !showFullscreenButton;
+}
+
+function hideIntegrityWarning() {
+  integrityBanner.hidden = true;
+  fullscreenRetry.hidden = true;
 }
 
 function moveQuestion(offset) {
