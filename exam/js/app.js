@@ -21,8 +21,16 @@ let currentQuestionIndex = 0;
 let savedAnswers = {};
 
 document.addEventListener("DOMContentLoaded", async () => {
-  installExamIntegrity();
-  installExamCalculator();
+  try {
+    installExamIntegrity();
+  } catch (error) {
+    console.error("Error inicializando integridad:", error);
+  }
+  try {
+    installExamCalculator();
+  } catch (error) {
+    console.error("Error inicializando calculadora:", error);
+  }
   loginView.addEventListener("submit", handleLogin);
   prevQuestion.addEventListener("click", () => moveQuestion(-1));
   nextQuestion.addEventListener("click", () => moveQuestion(1));

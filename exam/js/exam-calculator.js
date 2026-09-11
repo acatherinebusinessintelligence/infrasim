@@ -116,11 +116,14 @@
   }
 
   function installCalculator() {
-    const openButton = document.querySelector("#openCalculator");
-    const panel = document.querySelector("#examCalculator");
-    const closeButton = document.querySelector("#closeCalculator");
-    const display = document.querySelector("#calculatorDisplay");
-    if (!openButton || !panel || !closeButton || !display) return null;
+    const openButton = document.getElementById("openCalculator");
+    if (!openButton) return null;
+    if (openButton.dataset.calculatorInstalled === "true") return null;
+    const panel = document.getElementById("examCalculator");
+    const closeButton = document.getElementById("closeCalculator");
+    const display = document.getElementById("calculatorDisplay");
+    if (!panel || !closeButton || !display) return null;
+    openButton.dataset.calculatorInstalled = "true";
 
     const engine = new CalculatorEngine();
 
