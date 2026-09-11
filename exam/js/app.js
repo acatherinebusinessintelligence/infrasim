@@ -22,6 +22,7 @@ let savedAnswers = {};
 
 document.addEventListener("DOMContentLoaded", async () => {
   installExamIntegrity();
+  installExamCalculator();
   loginView.addEventListener("submit", handleLogin);
   prevQuestion.addEventListener("click", () => moveQuestion(-1));
   nextQuestion.addEventListener("click", () => moveQuestion(1));
@@ -366,6 +367,11 @@ function installExamIntegrity() {
     recordEvent: recordExamIntegrityEvent,
     onWarning: showIntegrityWarning,
   });
+}
+
+function installExamCalculator() {
+  if (!window.ExamCalculator) return;
+  window.ExamCalculator.installCalculator();
 }
 
 function activateExamIntegrity() {

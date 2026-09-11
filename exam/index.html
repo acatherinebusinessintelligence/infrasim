@@ -55,6 +55,7 @@
           <aside class="formula-panel">
             <h2>FÓRMULAS DE APOYO</h2>
             <p>Consulta las fórmulas disponibles y determina cuál corresponde al análisis planteado.</p>
+            <button id="openCalculator" type="button" class="calculator-open">CALCULADORA</button>
             <dl>
               <dt>DISPONIBILIDAD</dt>
               <dd>Disponibilidad (%) = ((Tiempo total - Tiempo de indisponibilidad) / Tiempo total) × 100</dd>
@@ -70,11 +71,40 @@
               <dd>Crecimiento promedio = Suma de crecimiento de periodos / Número de periodos</dd>
             </dl>
           </aside>
+          <section id="examCalculator" class="calculator-panel" hidden aria-label="Calculadora">
+            <div class="calculator-header">
+              <h2>CALCULADORA</h2>
+              <button id="closeCalculator" type="button" class="calculator-close" aria-label="Cerrar calculadora">X</button>
+            </div>
+            <output id="calculatorDisplay" class="calculator-display" aria-live="polite">0</output>
+            <div class="calculator-grid" aria-label="Controles de calculadora">
+              <button type="button" data-calc-key="C" aria-label="Limpiar calculadora">C</button>
+              <button type="button" data-calc-key="backspace" aria-label="Borrar ultimo digito">Borrar</button>
+              <button type="button" data-calc-key="%" aria-label="Porcentaje">%</button>
+              <button type="button" data-calc-key="/" aria-label="Dividir">&divide;</button>
+              <button type="button" data-calc-key="7" aria-label="Siete">7</button>
+              <button type="button" data-calc-key="8" aria-label="Ocho">8</button>
+              <button type="button" data-calc-key="9" aria-label="Nueve">9</button>
+              <button type="button" data-calc-key="*" aria-label="Multiplicar">&times;</button>
+              <button type="button" data-calc-key="4" aria-label="Cuatro">4</button>
+              <button type="button" data-calc-key="5" aria-label="Cinco">5</button>
+              <button type="button" data-calc-key="6" aria-label="Seis">6</button>
+              <button type="button" data-calc-key="-" aria-label="Restar">-</button>
+              <button type="button" data-calc-key="1" aria-label="Uno">1</button>
+              <button type="button" data-calc-key="2" aria-label="Dos">2</button>
+              <button type="button" data-calc-key="3" aria-label="Tres">3</button>
+              <button type="button" data-calc-key="+" aria-label="Sumar">+</button>
+              <button type="button" data-calc-key="0" aria-label="Cero">0</button>
+              <button type="button" data-calc-key="." aria-label="Decimal">.</button>
+              <button type="button" data-calc-key="=" class="calculator-equals" aria-label="Calcular resultado">=</button>
+            </div>
+          </section>
         </section>
       </section>
     </main>
     <script src="js/api.js"></script>
     <script src="js/exam-integrity.js"></script>
+    <script src="js/exam-calculator.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
