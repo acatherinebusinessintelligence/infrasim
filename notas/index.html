@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados Corte 1 - Gestion de Infraestructura TI</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="exam-shell">
+    <section class="exam-card">
+      <p class="eyebrow">InfraSim Notas</p>
+      <h1>RESULTADOS — GESTIÓN DE INFRAESTRUCTURA TI</h1>
+      <p class="lead">Ingresa con tu correo registrado y el código individual entregado para consultar tu nota de Corte 1.</p>
+
+      <form id="loginView" class="exam-form">
+        <label>
+          Correo
+          <input id="email" name="email" type="email" autocomplete="username" required>
+        </label>
+        <label>
+          Código individual
+          <input id="accessCode" name="accessCode" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="primary-action" type="submit">VALIDAR ACCESO</button>
+      </form>
+
+      <div id="statusView" class="status-view" hidden>
+        <h2 id="statusTitle"></h2>
+        <p id="statusMessage"></p>
+        <div id="resultView" class="result-summary" hidden></div>
+      </div>
+    </section>
+  </main>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
