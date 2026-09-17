@@ -51,29 +51,100 @@ function renderPendiente(payload) {
     : (payload.mensaje || "Tu nota definitiva de este corte aún no ha sido registrada.");
 }
 
+// Pesos fijos del modelo de ponderación (Taller siempre 10%).
+// Si usa simulación, el 10% se toma del Parcial (por defecto) o del Caso (si así se eligió).
+function scenarioWeights(origin) {
+  if (origin === "Caso") {
+    return { taller: 10, caso: 40, parcial: 40, simulacion: 10 };
+  }
+  return { taller: 10, caso: 50, parcial: 30, simulacion: 10 };
+}
+
+function noSimulationWeights() {
+  return { taller: 10, caso: 50, parcial: 40, simulacion: 0 };
+}
+
+function formatWeights(w) {
+  const parts = [`Taller ${w.taller}%`, `Caso ${w.caso}%`, `Parcial ${w.parcial}%`];
+  if (w.simulacion > 0) parts.push(`Simulación ${w.simulacion}%`);
+  return parts.join(" · ");
+}
+
+function scenarioCardHtml(label, weights, nota, isChosen) {
+  const notaTexto = nota == null ? "—" : escapeHtml(nota);
+  return `
+    <div class="scenario-card${isChosen ? " scenario-card--chosen" : ""}">
+      ${isChosen ? '<span class="scenario-card__badge">Nota aplicada</span>' : ""}
+      <p class="scenario-card__label">${escapeHtml(label)}</p>
+      <p class="scenario-card__weights">${escapeHtml(formatWeights(weights))}</p>
+      <p class="scenario-card__score">${notaTexto}</p>
+    </div>
+  `;
+}
+
+function metricHtml(label, value) {
+  return `
+    <div class="metric">
+      <span class="metric__label">${escapeHtml(label)}</span>
+      <strong class="metric__value">${escapeHtml(value)}</strong>
+    </div>
+  `;
+}
+
 function renderResult(payload) {
   loginView.hidden = true;
   statusView.hidden = false;
   statusMessage.className = "";
   statusTitle.textContent = payload.estudiante || "Resultado";
   statusMessage.textContent = `NRC ${payload.nrc || ""} · ${payload.grupo || ""}`;
-  const simulation = payload.usa_simulacion ? (payload.simulacion_5 ?? "—") : "No aplica";
-  const originWhy = payload.metodo_seleccion === "automatico_mejor_opcion"
-    ? "se eligió el escenario con la nota final más alta"
-    : payload.metodo_seleccion === "manual"
-      ? "ajuste registrado por la docente"
-      : "";
+
+  const usaSimulacion = Boolean(payload.usa_simulacion);
+  const simulationValue = usaSimulacion ? (payload.simulacion_5 ?? "—") : "No aplica";
+
+  const metricsHtml = [
+    metricHtml("Taller /5", payload.taller_5),
+    metricHtml("Caso /5", payload.caso_5),
+    metricHtml("Parcial /5", payload.parcial_5),
+    metricHtml("Simulación /5", simulationValue),
+  ].join("");
+
+  let scenarioHtml = "";
+  if (usaSimulacion && payload.nota_escenario_parcial != null && payload.nota_escenario_caso != null) {
+    const origen = payload.origen_elegido || "Parcial";
+    const explicacion = payload.metodo_seleccion === "automatico_mejor_opcion"
+      ? "El sistema comparó las dos formas de aplicar el 10% de la simulación y aplicó automáticamente la que te da la nota más alta."
+      : payload.metodo_seleccion === "manual"
+        ? "La docente ajustó manualmente cuál de las dos opciones se aplica."
+        : "";
+    scenarioHtml = `
+      <div class="scenario-compare">
+        <h3>¿Cómo se aplicó el 10% de la simulación?</h3>
+        ${explicacion ? `<p class="scenario-compare__note">${escapeHtml(explicacion)}</p>` : ""}
+        <div class="scenario-grid">
+          ${scenarioCardHtml("Sumado al Parcial", scenarioWeights("Parcial"), payload.nota_escenario_parcial, origen === "Parcial")}
+          ${scenarioCardHtml("Sumado al Caso", scenarioWeights("Caso"), payload.nota_escenario_caso, origen === "Caso")}
+        </div>
+      </div>
+    `;
+  } else if (!usaSimulacion) {
+    const w = noSimulationWeights();
+    scenarioHtml = `
+      <div class="scenario-compare">
+        <h3>Ponderación aplicada</h3>
+        <p class="scenario-compare__note">Este corte no incluyó simulación para ti.</p>
+        <p class="scenario-compare__weights-only">${escapeHtml(formatWeights(w))}</p>
+      </div>
+    `;
+  }
+
   resultView.hidden = false;
   resultView.innerHTML = `
-    <div class="result-grid">
-      <div><span>Taller /5</span><strong>${escapeHtml(payload.taller_5)}</strong></div>
-      <div><span>Caso /5</span><strong>${escapeHtml(payload.caso_5)}</strong></div>
-      <div><span>Parcial /5</span><strong>${escapeHtml(payload.parcial_5)}</strong></div>
-      <div><span>Simulación /5</span><strong>${escapeHtml(simulation)}</strong></div>
+    <div class="result-grid">${metricsHtml}</div>
+    <div class="final-grade">
+      <span class="final-grade__label">Nota final definitiva</span>
+      <strong class="final-grade__value">${escapeHtml(payload.nota_final_definitiva ?? "Pendiente")}</strong>
     </div>
-    <p><strong>Nota final definitiva:</strong> ${escapeHtml(payload.nota_final_definitiva ?? "Pendiente")}</p>
-    <p>Origen de simulación: ${escapeHtml(payload.origen_elegido || "No aplica")}. ${escapeHtml(originWhy)}.</p>
-    ${payload.nota_escenario_parcial != null ? `<p>Escenario Parcial: ${escapeHtml(payload.nota_escenario_parcial)}. Escenario Caso: ${escapeHtml(payload.nota_escenario_caso)}.</p>` : ""}
+    ${scenarioHtml}
     <h3>Retroalimentación del caso</h3>
     <div class="feedback-block">${escapeHtml(payload.retroalimentacion_amplia || "Aún no hay retroalimentación disponible.")}</div>
   `;

@@ -6,7 +6,9 @@
   --border: #d7e0e7;
   --accent: #1f6f8b;
   --accent-dark: #165168;
+  --accent-light: #e8f2f5;
   --danger: #9f3a38;
+  --success: #1f8b5a;
 }
 
 * { box-sizing: border-box; }
@@ -52,6 +54,16 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem 0;
+}
+
 .lead, #statusMessage { color: var(--muted); }
 
 .exam-form, .status-view { display: grid; gap: 1rem; }
@@ -88,7 +100,9 @@ button:disabled { cursor: wait; opacity: 0.72; }
 
 .error { color: var(--danger); font-weight: 700; }
 
-.result-summary { display: grid; gap: 0.85rem; width: 100%; }
+.result-summary { display: grid; gap: 1.25rem; width: 100%; }
+
+/* --- Métricas (Taller / Caso / Parcial / Simulación) --- */
 
 .result-grid {
   display: grid;
@@ -96,12 +110,127 @@ button:disabled { cursor: wait; opacity: 0.72; }
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
 }
 
-.result-grid div,
+.metric {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 0.7rem;
+}
+
+.metric__label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.metric__value {
+  color: var(--text);
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+/* --- Nota final destacada --- */
+
+.final-grade {
+  align-items: center;
+  background: var(--accent-light);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding: 1rem 1.1rem;
+}
+
+.final-grade__label {
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.final-grade__value {
+  color: var(--accent-dark);
+  font-size: 1.9rem;
+}
+
+/* --- Comparación de escenarios de simulación --- */
+
+.scenario-compare {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.scenario-compare__note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.scenario-compare__weights-only {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.scenario-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+.scenario-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem;
+  position: relative;
+}
+
+.scenario-card--chosen {
+  border-color: var(--success);
+  border-width: 2px;
+  background: #f2faf6;
+}
+
+.scenario-card__badge {
+  background: var(--success);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  position: absolute;
+  right: 0.7rem;
+  text-transform: uppercase;
+  top: 0.7rem;
+}
+
+.scenario-card__label {
+  color: var(--text);
+  font-weight: 700;
+  margin: 0 0 0.35rem 0;
+}
+
+.scenario-card__weights {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0 0 0.6rem 0;
+}
+
+.scenario-card__score {
+  color: var(--accent-dark);
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+/* --- Retroalimentación --- */
+
 .feedback-block {
   background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.7rem;
+  padding: 0.9rem;
+  white-space: pre-wrap;
 }
-
-.feedback-block { white-space: pre-wrap; }
