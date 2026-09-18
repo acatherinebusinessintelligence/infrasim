@@ -61,7 +61,7 @@ h2 {
 
 h3 {
   font-size: 1.05rem;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.4rem 0;
 }
 
 .lead, #statusMessage { color: var(--muted); }
@@ -102,7 +102,41 @@ button:disabled { cursor: wait; opacity: 0.72; }
 
 .result-summary { display: grid; gap: 1.25rem; width: 100%; }
 
-/* --- Métricas (Taller / Caso / Parcial / Simulación) --- */
+/* --- Bloques de grafica (resumen del corte / rubrica del caso) --- */
+
+.chart-block {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.chart-block__note {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.chart-wrap {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem;
+}
+
+.chart-wrap--corte { height: 220px; }
+.chart-wrap--rubrica { height: 260px; }
+
+.rubrica-highlight {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0 0;
+  padding: 0.6rem 0.8rem;
+}
+
+/* --- Metricas (Taller / Caso / Parcial / Simulacion) --- */
 
 .result-grid {
   display: grid;
@@ -156,7 +190,7 @@ button:disabled { cursor: wait; opacity: 0.72; }
   font-size: 1.9rem;
 }
 
-/* --- Comparación de escenarios de simulación --- */
+/* --- Comparacion de escenarios de simulacion --- */
 
 .scenario-compare {
   border-top: 1px solid var(--border);
@@ -225,7 +259,7 @@ button:disabled { cursor: wait; opacity: 0.72; }
   margin: 0;
 }
 
-/* --- Retroalimentación --- */
+/* --- Retroalimentacion --- */
 
 .feedback-block {
   background: #ffffff;
