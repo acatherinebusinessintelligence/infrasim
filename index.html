@@ -3,45 +3,181 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>InfraSim</title>
+    <title>InfraSim | UNIMINUTO</title>
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
     <header id="app-header" class="app-header" hidden>
-      <div>
-        <p class="eyebrow">InfraSim</p>
-        <strong>Simulador formativo</strong>
+      <div class="app-brand">
+        <img src="assets/uniminuto-logo.png" alt="UNIMINUTO">
+        <div>
+          <p class="eyebrow">InfraSim</p>
+          <strong>Simulador formativo</strong>
+        </div>
       </div>
-      <nav class="app-nav">
+      <nav class="app-nav" aria-label="Navegacion del simulador">
         <button id="nav-dashboard" type="button" class="nav-link">Panel</button>
         <button id="nav-history" type="button" class="nav-link">Historial</button>
-        <button id="logout-button" type="button" class="nav-link">Cerrar sesión</button>
+        <button id="logout-button" type="button" class="nav-link">Cerrar sesion</button>
       </nav>
     </header>
 
-    <section id="view-login" class="view-shell">
-      <article class="login-card">
-        <p class="eyebrow">Acceso del estudiante</p>
-        <h1>InfraSim</h1>
-        <p class="hero-copy">
-          Ingresa con tu correo para realizar simulacros, guardar tus intentos y ver qué competencias debes reforzar.
-        </p>
-        <p class="disclaimer">
-          Este acceso identifica tu progreso dentro del simulador. No reemplaza un sistema institucional de autenticación.
-        </p>
-        <form id="login-form" class="login-form">
-          <label class="select-field">
-            Correo institucional o personal
-            <input id="login-email" type="email" name="email" autocomplete="email" required placeholder="aleja@uniminuto.edu">
-          </label>
-          <button type="submit" class="primary-action">INGRESAR AL SIMULADOR</button>
-          <p id="login-message" class="form-message" aria-live="polite"></p>
-        </form>
-        <div class="exam-access-block">
-          <p>¿Vas a presentar la evaluación?</p>
-          <a class="secondary-action exam-link" href="exam/">IR AL EXAMEN</a>
+    <section id="view-login" class="home-shell">
+      <header class="home-nav">
+        <a class="home-brand" href="#inicio" aria-label="InfraSim inicio">
+          <span class="brand-mark"><img src="assets/uniminuto-logo.png" alt="UNIMINUTO"></span>
+          <span>
+            <strong>InfraSim</strong>
+            <small>Gestion de Infraestructura TI</small>
+          </span>
+        </a>
+        <nav class="home-links" aria-label="Navegacion principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#acceso">Simulador de Casos</a>
+          <a href="#laboratorio">Laboratorio BMM</a>
+          <a href="#actividades">Actividades</a>
+          <a href="#progreso">Historial / Progreso</a>
+          <a href="#acerca">Acerca de</a>
+        </nav>
+      </header>
+
+      <main id="inicio">
+        <section class="home-hero">
+          <div class="hero-content">
+            <p class="eyebrow">UNIMINUTO - Plataforma academica innovadora</p>
+            <h1>InfraSim</h1>
+            <p class="hero-subtitle">Simulador de analisis y toma de decisiones en infraestructura TI</p>
+            <p class="hero-copy">
+              Explora escenarios realistas, interpreta evidencia tecnica y sustenta decisiones con criterio de negocio,
+              continuidad, riesgo y gobierno TI.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-action" href="#acceso">Iniciar simulador</a>
+              <a class="secondary-action" href="#laboratorio">Laboratorio BMM</a>
+              <a class="ghost-action" href="#modulos">Explorar modulos</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Composicion visual de infraestructura TI">
+            <div class="network-card main-node">
+              <span>InfraSim Core</span>
+              <strong>Decision Lab</strong>
+            </div>
+            <div class="network-grid" aria-hidden="true">
+              <span>Servicios criticos</span>
+              <span>Riesgos</span>
+              <span>Metricas</span>
+              <span>Gobierno TI</span>
+            </div>
+            <div class="signal-line one"></div>
+            <div class="signal-line two"></div>
+            <div class="signal-line three"></div>
+          </div>
+        </section>
+
+        <section class="story-section" aria-labelledby="story-title">
+          <div class="section-intro">
+            <p class="eyebrow">Recorrido de aprendizaje</p>
+            <h2 id="story-title">Del contexto tecnico a la decision sustentada</h2>
+          </div>
+          <ol class="learning-path">
+            <li><span>01</span><strong>Entender el negocio</strong><p>Reconoce servicios, usuarios, prioridades y restricciones.</p></li>
+            <li><span>02</span><strong>Diagnosticar</strong><p>Interpreta incidentes, dependencias y evidencia disponible.</p></li>
+            <li><span>03</span><strong>Analizar riesgos</strong><p>Evalua continuidad, SPOF, seguridad, capacidad y gobierno.</p></li>
+            <li><span>04</span><strong>Sustentar decisiones</strong><p>Conecta hallazgos tecnicos con acciones viables.</p></li>
+            <li><span>05</span><strong>Disenar mejoras</strong><p>Propone rutas de mejora con impacto y prioridad.</p></li>
+          </ol>
+        </section>
+
+        <section id="modulos" class="modules-section" aria-labelledby="modules-title">
+          <div class="section-intro">
+            <p class="eyebrow">Modulos principales</p>
+            <h2 id="modules-title">Una experiencia de simulacion completa</h2>
+          </div>
+          <div class="module-grid">
+            <article class="module-card featured-card" id="acceso">
+              <span class="module-icon">IT</span>
+              <h3>Simulador de Casos</h3>
+              <p>Sortee un caso, analice evidencia y responda preguntas orientadas a competencias.</p>
+              <a href="#student-access" class="module-link">Ingresar al simulador</a>
+            </article>
+            <article class="module-card" id="laboratorio">
+              <span class="module-icon">BMM</span>
+              <h3>Laboratorio BMM</h3>
+              <p>Conecta analisis tecnico con lenguaje de negocio, madurez y toma de decisiones.</p>
+              <a href="#como-funciona" class="module-link">Ver recorrido</a>
+            </article>
+            <article class="module-card" id="actividades">
+              <span class="module-icon">AC</span>
+              <h3>Talleres / Actividades</h3>
+              <p>Refuerza conceptos clave mediante practicas guiadas y retos de interpretacion.</p>
+              <a href="#como-funciona" class="module-link">Explorar dinamica</a>
+            </article>
+            <article class="module-card" id="progreso">
+              <span class="module-icon">PR</span>
+              <h3>Resultados / Progreso</h3>
+              <p>Consulta desempeno, competencias fuertes y oportunidades de mejora.</p>
+              <a href="#student-access" class="module-link">Ver mi panel</a>
+            </article>
+            <article class="module-card">
+              <span class="module-icon">RS</span>
+              <h3>Recursos</h3>
+              <p>Accede a conceptos de disponibilidad, MTTR, capacidad, riesgo, ITIL, COBIT e ISO 27001.</p>
+              <a href="#acerca" class="module-link">Conocer enfoque</a>
+            </article>
+          </div>
+        </section>
+
+        <section id="como-funciona" class="how-section" aria-labelledby="how-title">
+          <div class="section-intro">
+            <p class="eyebrow">Como funciona</p>
+            <h2 id="how-title">Aprender haciendo, decidir argumentando</h2>
+          </div>
+          <div class="how-grid">
+            <article><span>1</span><h3>Explora el caso</h3><p>Lee el contexto, los servicios y la infraestructura involucrada.</p></article>
+            <article><span>2</span><h3>Analiza la evidencia</h3><p>Contrasta metricas, incidentes, dependencias y limitaciones.</p></article>
+            <article><span>3</span><h3>Toma decisiones</h3><p>Selecciona respuestas y calcula indicadores clave cuando aplique.</p></article>
+            <article><span>4</span><h3>Construye conclusiones</h3><p>Recibe retroalimentacion y fortalece tu criterio profesional.</p></article>
+          </div>
+        </section>
+
+        <section id="student-access" class="access-section">
+          <article class="login-card">
+            <p class="eyebrow">Acceso del estudiante</p>
+            <h2>Entra a tu entorno de practica</h2>
+            <p class="hero-copy">
+              Ingresa con tu correo para realizar simulacros, guardar intentos y revisar que competencias debes reforzar.
+            </p>
+            <form id="login-form" class="login-form">
+              <label class="select-field">
+                Correo institucional o personal
+                <input id="login-email" type="email" name="email" autocomplete="email" required placeholder="aleja@uniminuto.edu">
+              </label>
+              <button type="submit" class="primary-action">INGRESAR AL SIMULADOR</button>
+              <p id="login-message" class="form-message" aria-live="polite"></p>
+            </form>
+            <div class="exam-access-block">
+              <p>Vas a presentar la evaluacion oficial?</p>
+              <a class="secondary-action exam-link" href="exam/">IR AL EXAMEN</a>
+            </div>
+          </article>
+          <aside class="access-highlight">
+            <p class="eyebrow">Plataforma academica</p>
+            <h2>Simulacion con enfoque profesional</h2>
+            <p>InfraSim combina infraestructura TI, continuidad, riesgo, gobierno y pensamiento analitico para acercar la clase a escenarios reales.</p>
+          </aside>
+        </section>
+      </main>
+
+      <footer id="acerca" class="home-footer">
+        <div>
+          <strong>UNIMINUTO - InfraSim</strong>
+          <p>Simulador educativo para Gestion de Infraestructura TI.</p>
         </div>
-      </article>
+        <div>
+          <span>Curso: Gestion de Infraestructura TI</span>
+          <span>Version del sistema: InfraSim Exam / Learning Suite</span>
+        </div>
+      </footer>
     </section>
 
     <section id="view-dashboard" class="view-shell" hidden>
@@ -51,9 +187,9 @@
     <main id="view-simulator" class="exam-layout" hidden>
       <section class="hero-panel">
         <p class="eyebrow">InfraSim</p>
-        <h1>Simulador de Gestión de Infraestructura TI</h1>
+        <h1>Simulador de Gestion de Infraestructura TI</h1>
         <p class="hero-copy">
-          Recibirás un caso técnico generado aleatoriamente. Analiza la información y responde 10 preguntas.
+          Recibiras un caso tecnico generado aleatoriamente. Analiza la informacion y responde 10 preguntas.
         </p>
         <button id="draw-button" type="button" class="primary-action">SORTEAR MI CASO</button>
       </section>
@@ -67,7 +203,7 @@
         <div class="section-heading">
           <span>!</span>
           <div>
-            <h2>Información del caso</h2>
+            <h2>Informacion del caso</h2>
             <p>Lee el contexto antes de iniciar el simulacro.</p>
           </div>
         </div>
