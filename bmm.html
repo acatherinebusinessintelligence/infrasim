@@ -6,7 +6,7 @@
     <title>Laboratorio BMM | InfraSim</title>
     <link rel="stylesheet" href="css/styles.css">
   </head>
-  <body class="bmm-page">
+  <body class="bmm-page bmm-wizard-page">
     <header class="home-nav">
       <a class="home-brand" href="index.html" aria-label="Volver a InfraSim">
         <span class="brand-mark"><img src="assets/uniminuto-logo.png" alt="UNIMINUTO"></span>
@@ -15,105 +15,162 @@
           <small>Laboratorio BMM</small>
         </span>
       </a>
-      <nav class="home-links" aria-label="Navegacion del laboratorio">
+      <nav class="home-links" aria-label="Navegacion principal">
         <a href="index.html">Inicio</a>
-        <a href="#entrada">Laboratorio BMM</a>
-        <a href="#bmm-workspace">Exploracion</a>
-        <a href="#lectura-negocio">Tu lectura</a>
-        <a href="#revision-docente">Revision docente</a>
+        <a href="index.html#acceso">Simulador</a>
+        <a href="bmm.html" aria-current="page">Laboratorio BMM</a>
+        <a href="exam/">Evaluacion</a>
       </nav>
     </header>
 
     <main>
-      <section id="entrada" class="bmm-hero">
-        <div class="bmm-hero-content">
+      <section class="bmm-lab-hero" aria-labelledby="bmm-title">
+        <div>
+          <a class="bmm-back-link" href="index.html">Volver a InfraSim</a>
           <p class="eyebrow">Laboratorio BMM</p>
-          <h1>Entiende el negocio antes de tocar la infraestructura</h1>
+          <h1 id="bmm-title">Del negocio a la infraestructura</h1>
           <p class="hero-copy">
-            Antes de proponer una solucion tecnologica, necesitas comprender que busca la organizacion,
-            que capacidades sostienen su operacion, que factores la afectan y que riesgos pueden impedir
-            que alcance sus objetivos.
+            Antes de decidir que tecnologia necesita una organizacion, primero comprende
+            que necesita proteger el negocio.
           </p>
-          <div class="hero-actions">
-            <a class="primary-action" href="#bmm-workspace">Comenzar exploracion</a>
-            <a class="secondary-action" href="index.html">Volver a Inicio</a>
+          <p class="active-case">Caso activo: <strong>NovaPay Digital</strong></p>
+        </div>
+        <aside class="bmm-progress-card" aria-label="Progreso del laboratorio">
+          <span id="bmm-stage-label">Etapa 1 de 6</span>
+          <div class="bmm-progress-track" aria-hidden="true">
+            <div id="bmm-progress-fill"></div>
           </div>
-          <p class="bmm-case-note">MVP IA: mentor socratico conectado al caso C03 - NovaPay Digital.</p>
-        </div>
-        <div class="bmm-flow" aria-label="Recorrido negocio infraestructura impacto">
-          <span>Negocio</span>
-          <span>Objetivos</span>
-          <span>Capacidades</span>
-          <span>Riesgos</span>
-          <span>Infraestructura</span>
-          <span>Impacto</span>
-        </div>
+          <small>Progreso de actividad, no nota.</small>
+        </aside>
       </section>
 
-      <section id="bmm-workspace" class="bmm-workspace">
-        <aside class="bmm-steps" aria-label="Etapas del laboratorio">
-          <button type="button" class="bmm-step active" data-stage="1">
-            <span>1</span>
-            Comprender el negocio
-          </button>
-          <button type="button" class="bmm-step" data-stage="2">
-            <span>2</span>
-            Identificar influencias
-          </button>
-          <button type="button" class="bmm-step" data-stage="6">
-            <span>3</span>
-            Conclusion propia
-          </button>
-        </aside>
+      <nav class="bmm-journey" aria-label="Recorrido del laboratorio BMM">
+        <button type="button" class="journey-step active" data-stage="1"><span>01</span>Negocio</button>
+        <button type="button" class="journey-step" data-stage="2"><span>02</span>Objetivos</button>
+        <button type="button" class="journey-step" data-stage="3"><span>03</span>Capacidades</button>
+        <button type="button" class="journey-step" data-stage="4"><span>04</span>Riesgos</button>
+        <button type="button" class="journey-step" data-stage="5"><span>05</span>Infraestructura</button>
+        <button type="button" class="journey-step" data-stage="6"><span>06</span>Impacto</button>
+        <button type="button" class="journey-step synthesis-step" data-stage="7"><span>07</span>Sintesis</button>
+      </nav>
 
-        <form id="bmm-form" class="bmm-panel">
-          <section class="bmm-stage active" data-stage-panel="1">
-            <p class="eyebrow">Etapa 1</p>
-            <h2>Comprender el negocio</h2>
-            <div class="bmm-case">
-              <strong>Situacion de negocio</strong>
-              <p>
-                La organizacion presta un servicio critico a sus clientes. Una interrupcion tecnologica
-                afecta directamente su operacion, la continuidad del servicio y la confianza de los usuarios.
-              </p>
+      <form id="bmm-form" class="bmm-wizard-form">
+        <section class="bmm-stage active" data-stage-panel="1" data-stage-title="Negocio">
+          <article class="bmm-challenge">
+            <p class="eyebrow">Reto 01</p>
+            <h2>Que negocio estas intentando comprender?</h2>
+            <p class="challenge-intro">
+              Mira primero la organizacion y sus actores. Todavia no propongas tecnologia.
+            </p>
+            <div class="bmm-case-card micro-evidence-card">
+              <strong>Evidencia del caso</strong>
+              NovaPay opera pagos digitales 24/7. Una caida del servicio puede afectar comercios,
+              clientes finales, ingresos, soporte y confianza.
             </div>
-            <div class="bmm-question-grid">
-              <label>
-                Que resultado necesita mantener la organizacion?
-                <textarea name="business_goal" rows="3" required></textarea>
+            <div class="micro-question-shell" data-micro-stage="business">
+              <div class="micro-progress-row">
+                <span id="business-question-progress">Pregunta 1 de 4</span>
+                <small>Progreso interno, no nota.</small>
+              </div>
+              <div id="business-previous-idea" class="previous-idea" hidden></div>
+              <label class="student-response">
+                <span id="business-question-text">Que resultado necesita mantener NovaPay?</span>
+                <textarea id="business-micro-answer" rows="7" placeholder="Responde con tus propias palabras."></textarea>
               </label>
-              <label>
-                Quien depende de ese resultado?
-                <textarea name="affected_users" rows="3" required></textarea>
-              </label>
-              <label>
-                Que servicio o capacidad parece mas importante?
-                <textarea name="critical_service" rows="3" required></textarea>
-              </label>
-              <label>
-                Que ocurriria si ese servicio deja de funcionar?
-                <textarea name="business_impact" rows="3" required></textarea>
-              </label>
+              <p id="business-question-hint" class="structure-hint">Pista estructural: resultado de negocio.</p>
             </div>
-            <label class="bmm-full-field">
-              En una frase, describe que necesita proteger o asegurar esta organizacion.
-              <textarea name="business_protection" rows="3"></textarea>
-            </label>
-            <div class="action-row">
-              <button type="button" class="primary-action" data-next-stage="2">Continuar</button>
-              <button type="button" class="secondary-action" data-ai-coach="business_goal">Desafiame</button>
+            <div id="business-stage-synthesis" class="stage-synthesis" hidden>
+              <p class="eyebrow">Sintesis de etapa</p>
+              <h3>Integra tus respuestas</h3>
+              <p class="structure-hint">Pista estructural: Resultado + actor + impacto.</p>
+              <label class="student-response">
+                Con base en tus respuestas, escribe en una frase que necesita proteger o asegurar NovaPay desde la perspectiva del negocio.
+                <textarea name="business_protection" rows="5" data-stage-synthesis="business" placeholder="No hay respuesta automatica: escribe tu propia sintesis."></textarea>
+              </label>
+              <div id="business-stage-history" class="stage-history" aria-live="polite"></div>
+            </div>
+          </article>
+          <aside class="mentor-card" data-mentor-shell="business_goal">
+            <div class="mentor-empty-state">
+              <span class="mentor-icon" aria-hidden="true">IA</span>
+              <h3>Mentor IA</h3>
+              <p>Completa primero las micro-preguntas y tu sintesis. Luego puedo desafiar tus ideas sin darte la solucion.</p>
+              <button type="button" class="secondary-action" data-ai-coach="business_goal" disabled>Desafiame</button>
             </div>
             <div class="ai-mentor-panel" data-ai-panel="business_goal" hidden></div>
-          </section>
+          </aside>
+        </section>
 
-          <section class="bmm-stage" data-stage-panel="2">
-            <p class="eyebrow">Etapa 2</p>
-            <h2>Identificar influencias</h2>
-            <p class="hero-copy">
-              Selecciona los factores que mas pueden afectar el logro del objetivo. No busques una lista perfecta:
-              piensa en que presiona, limita o amenaza al negocio.
+        <section class="bmm-stage" data-stage-panel="2" data-stage-title="Objetivos">
+          <article class="bmm-challenge">
+            <p class="eyebrow">Reto 02</p>
+            <h2>Que necesita lograr NovaPay?</h2>
+            <p class="challenge-intro">
+              Piensa primero en el negocio. Todavia no propongas tecnologia.
             </p>
-            <div class="influence-grid">
+            <div class="bmm-case-card">
+              El valor no es que los servidores existan: es que los pagos, conciliaciones y atencion
+              funcionen con continuidad suficiente para sostener confianza.
+            </div>
+            <label class="student-response">
+              Que resultado de negocio debe mantenerse disponible?
+              <textarea name="business_goal" rows="7" data-min-answer placeholder="Formula el resultado en lenguaje de negocio."></textarea>
+            </label>
+            <label class="secondary-response">
+              En una frase, que necesita proteger o asegurar esta organizacion?
+              <textarea name="business_protection" rows="3"></textarea>
+            </label>
+          </article>
+          <aside class="mentor-card" data-mentor-shell="objectives">
+            <div class="mentor-empty-state">
+              <span class="mentor-icon" aria-hidden="true">IA</span>
+              <h3>Mentor IA</h3>
+              <p>Escribe tu objetivo de negocio. Luego puedo ayudarte a hacerlo mas especifico.</p>
+              <button type="button" class="secondary-action" data-ai-coach="objectives" disabled>Desafiame</button>
+            </div>
+            <div class="ai-mentor-panel" data-ai-panel="objectives" hidden></div>
+          </aside>
+        </section>
+
+        <section class="bmm-stage" data-stage-panel="3" data-stage-title="Capacidades">
+          <article class="bmm-challenge">
+            <p class="eyebrow">Reto 03</p>
+            <h2>Que capacidades sostienen ese objetivo?</h2>
+            <p class="challenge-intro">
+              Identifica acciones, servicios o capacidades necesarias para que el negocio cumpla su promesa.
+            </p>
+            <div class="bmm-case-card">
+              Las capacidades pueden ser transaccionales, operativas, de soporte, monitoreo, seguridad
+              o atencion al cliente. No son aun una arquitectura TO-BE.
+            </div>
+            <label class="student-response">
+              Que servicio o capacidad parece mas importante?
+              <textarea name="critical_service" rows="6" data-min-answer placeholder="Relaciona la capacidad con el objetivo de negocio."></textarea>
+            </label>
+            <label class="secondary-response">
+              Que capacidades actuales podrian estar limitando el resultado?
+              <textarea name="current_capabilities_text" rows="3"></textarea>
+            </label>
+          </article>
+          <aside class="mentor-card" data-mentor-shell="critical_service">
+            <div class="mentor-empty-state">
+              <span class="mentor-icon" aria-hidden="true">IA</span>
+              <h3>Mentor IA</h3>
+              <p>Primero conecta la capacidad con el negocio. Despues puedo desafiar el enlace causal.</p>
+              <button type="button" class="secondary-action" data-ai-coach="critical_service" disabled>Desafiame</button>
+            </div>
+            <div class="ai-mentor-panel" data-ai-panel="critical_service" hidden></div>
+          </aside>
+        </section>
+
+        <section class="bmm-stage" data-stage-panel="4" data-stage-title="Riesgos">
+          <article class="bmm-challenge">
+            <p class="eyebrow">Reto 04</p>
+            <h2>Que puede impedir que NovaPay cumpla?</h2>
+            <p class="challenge-intro">
+              Selecciona influenciadores y prioriza uno. El reto es explicar por que afecta el negocio.
+            </p>
+            <div class="journey-influences">
               <label><input type="checkbox" name="influencers" value="crecimiento de usuarios"><span>Crecimiento de usuarios</span></label>
               <label><input type="checkbox" name="influencers" value="dependencia tecnologica"><span>Dependencia tecnologica</span></label>
               <label><input type="checkbox" name="influencers" value="regulacion"><span>Regulacion</span></label>
@@ -123,8 +180,8 @@
               <label><input type="checkbox" name="influencers" value="cambios del mercado"><span>Cambios del mercado</span></label>
               <label><input type="checkbox" name="influencers" value="capacidades actuales"><span>Capacidades actuales</span></label>
             </div>
-            <label class="bmm-full-field">
-              Cual de estos factores puede impedir con mayor fuerza que la organizacion logre su objetivo?
+            <label class="secondary-response">
+              Factor prioritario
               <select name="priority_risk">
                 <option value="">Selecciona un factor</option>
                 <option value="crecimiento de usuarios">Crecimiento de usuarios</option>
@@ -137,67 +194,112 @@
                 <option value="capacidades actuales">Capacidades actuales</option>
               </select>
             </label>
-            <label class="bmm-full-field">
-              Explica por que.
-              <textarea name="risk_reason" rows="4"></textarea>
+            <label class="student-response">
+              Explica por que ese factor es prioritario.
+              <textarea name="risk_reason" rows="6" data-min-answer placeholder="Conecta el factor con continuidad, clientes, ingresos o cumplimiento."></textarea>
             </label>
-            <div class="bmm-reveal" id="influencer-reveal" hidden>
-              En BMM, este tipo de elementos se conocen como influenciadores: factores internos o externos
-              que condicionan lo que la organizacion puede lograr.
-            </div>
-            <div class="action-row">
-              <button type="button" class="secondary-action" data-next-stage="1">Volver</button>
-              <button type="button" class="primary-action" data-reveal-influencers>Ver lectura BMM</button>
-              <button type="button" class="primary-action" data-next-stage="6">Ir a conclusion</button>
-              <button type="button" class="secondary-action" data-ai-coach="influencers">Desafiame</button>
+          </article>
+          <aside class="mentor-card" data-mentor-shell="influencers">
+            <div class="mentor-empty-state">
+              <span class="mentor-icon" aria-hidden="true">IA</span>
+              <h3>Mentor IA</h3>
+              <p>Cuando expliques el factor prioritario, puedo revisar si esta sustentado en el caso.</p>
+              <button type="button" class="secondary-action" data-ai-coach="influencers" disabled>Desafiame</button>
             </div>
             <div class="ai-mentor-panel" data-ai-panel="influencers" hidden></div>
-          </section>
+          </aside>
+        </section>
 
-          <section id="lectura-negocio" class="bmm-stage" data-stage-panel="6">
-            <p class="eyebrow">Etapa 6</p>
-            <h2>Tu lectura del negocio</h2>
-            <p class="hero-copy">
-              Revisa los elementos que has construido y redacta tu propia conclusion. El sistema organiza tu lectura,
-              pero no la resuelve por ti.
+        <section class="bmm-stage" data-stage-panel="5" data-stage-title="Infraestructura">
+          <article class="bmm-challenge">
+            <p class="eyebrow">Reto 05</p>
+            <h2>Que dependencia tecnologica sostiene el negocio?</h2>
+            <p class="challenge-intro">
+              Ahora si puedes mirar infraestructura, pero como dependencia del negocio, no como lista de compras.
             </p>
-            <div id="bmm-summary" class="business-map" aria-live="polite"></div>
-            <label class="bmm-full-field">
-              Dependencia tecnologica que parece sostener el servicio critico.
-              <textarea name="technology_dependency" rows="3"></textarea>
-            </label>
-            <label class="bmm-full-field">
-              Redacta en 3-5 lineas tu conclusion sobre que debe proteger o posibilitar la infraestructura para apoyar al negocio.
-              <textarea name="student_conclusion" rows="6"></textarea>
-            </label>
-            <div class="bmm-final-reveal" id="bmm-final-reveal" hidden>
-              <h3>Lectura simplificada del BMM</h3>
-              <ul>
-                <li>Objetivos o resultados: Fines</li>
-                <li>Acciones o capacidades: Medios</li>
-                <li>Factores que afectan el contexto: Influenciadores</li>
-                <li>Politicas o restricciones: Directivas</li>
-                <li>Recursos disponibles: Capacidades</li>
-                <li>Amenazas e impactos: Riesgos</li>
-              </ul>
+            <div class="bmm-case-card">
+              En una fintech, una dependencia puede ser autenticacion, API transaccional, base de datos,
+              integracion con pagos, observabilidad o conectividad.
             </div>
-            <article class="business-map-card">
-              <h3>Mapa de comprension del negocio</h3>
-              <div id="bmm-final-card" class="business-map"></div>
-            </article>
+            <label class="student-response">
+              Que dependencia tecnologica parece sostener el servicio critico?
+              <textarea name="technology_dependency" rows="7" data-min-answer placeholder="Explica la dependencia y su relacion con el negocio."></textarea>
+            </label>
+          </article>
+          <aside class="mentor-card" data-mentor-shell="technology_dependency">
+            <div class="mentor-empty-state">
+              <span class="mentor-icon" aria-hidden="true">IA</span>
+              <h3>Mentor IA</h3>
+              <p>Describe la dependencia. El mentor puede ayudarte a evitar saltos prematuros a solucion.</p>
+              <button type="button" class="secondary-action" data-ai-coach="technology_dependency" disabled>Desafiame</button>
+            </div>
+            <div class="ai-mentor-panel" data-ai-panel="technology_dependency" hidden></div>
+          </aside>
+        </section>
+
+        <section class="bmm-stage" data-stage-panel="6" data-stage-title="Impacto">
+          <article class="bmm-challenge">
+            <p class="eyebrow">Reto 06</p>
+            <h2>Que pasa si falla la cadena?</h2>
+            <p class="challenge-intro">
+              Cierra el razonamiento conectando impacto de negocio, capacidad y dependencia tecnologica.
+            </p>
+            <div class="bmm-impact-chain" aria-label="Cadena negocio infraestructura impacto">
+              <span>Negocio</span>
+              <span>Capacidad</span>
+              <span>Dependencia</span>
+              <span>Impacto</span>
+            </div>
+            <label class="student-response">
+              Que ocurriria si ese servicio o dependencia deja de funcionar?
+              <textarea name="business_impact" rows="7" data-min-answer placeholder="Describe consecuencias para usuarios, operacion, ingresos o confianza."></textarea>
+            </label>
+          </article>
+          <aside class="mentor-card" data-mentor-shell="business_impact">
+            <div class="mentor-empty-state">
+              <span class="mentor-icon" aria-hidden="true">IA</span>
+              <h3>Mentor IA</h3>
+              <p>Explica el impacto. Luego puedo desafiar si la consecuencia esta bien conectada.</p>
+              <button type="button" class="secondary-action" data-ai-coach="business_impact" disabled>Desafiame</button>
+            </div>
+            <div class="ai-mentor-panel" data-ai-panel="business_impact" hidden></div>
+          </aside>
+        </section>
+
+        <section class="bmm-stage" data-stage-panel="7" data-stage-title="Sintesis">
+          <article class="bmm-challenge synthesis-panel">
+            <p class="eyebrow">Sintesis</p>
+            <h2>Tu mapa de comprension</h2>
+            <p class="challenge-intro">
+              Esta pantalla no entrega una solucion. Organiza tus propias respuestas para preparar
+              las siguientes actividades del curso.
+            </p>
+            <div id="bmm-final-card" class="bmm-synthesis-map" aria-live="polite"></div>
+            <label class="student-response">
+              Redacta tu conclusion final.
+              <textarea name="student_conclusion" rows="7" data-min-answer placeholder="Conecta negocio, capacidad, riesgo, dependencia e impacto sin disenar aun el TO-BE."></textarea>
+            </label>
             <p id="bmm-save-message" class="form-message" aria-live="polite"></p>
-            <div class="action-row">
-              <button type="button" class="secondary-action" data-next-stage="2">Volver</button>
-              <button type="button" class="primary-action" id="save-bmm">Guardar conclusion</button>
-              <button type="button" class="secondary-action" data-ai-coach="student_conclusion">Desafiame</button>
-              <a class="secondary-action" href="index.html">Volver a InfraSim</a>
+          </article>
+          <aside class="mentor-card" data-mentor-shell="student_conclusion">
+            <div class="mentor-empty-state">
+              <span class="mentor-icon" aria-hidden="true">IA</span>
+              <h3>Mentor IA</h3>
+              <p>Cuando tengas tu conclusion, puedo desafiar la coherencia del recorrido completo.</p>
+              <button type="button" class="secondary-action" data-ai-coach="student_conclusion" disabled>Desafiame</button>
             </div>
             <div class="ai-mentor-panel" data-ai-panel="student_conclusion" hidden></div>
-          </section>
-        </form>
-      </section>
+          </aside>
+        </section>
 
-      <section id="revision-docente" class="bmm-review-section">
+        <div class="bmm-wizard-actions">
+          <button type="button" id="bmm-prev" class="secondary-action">Anterior</button>
+          <button type="button" id="bmm-next" class="primary-action">Guardar y continuar</button>
+          <a class="ghost-action" href="index.html">Volver a InfraSim</a>
+        </div>
+      </form>
+
+      <section id="revision-docente" class="bmm-review-section" hidden>
         <div class="section-intro">
           <p class="eyebrow">Modo docente</p>
           <h2>Revision pedagogica del razonamiento</h2>
