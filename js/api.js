@@ -182,3 +182,19 @@ async function finishQuiz(quizId, answers) {
 
   return parseApiResponse(response, "No fue posible finalizar el simulacro.");
 }
+
+
+async function askBmmMentor(payload) {
+  const response = await fetch(`${API_BASE_URL}/bmm/coach`, {
+    method: "POST",
+    headers: apiHeaders(),
+    body: JSON.stringify(payload),
+  });
+
+  const mentorPayload = await parseApiResponse(response, "El Mentor IA no esta disponible en este momento.");
+  mentorPayload.ai_rate_limit = {
+    limit: response.headers.get("X-AI-RateLimit-Limit"),
+    remaining: response.headers.get("X-AI-RateLimit-Remaining"),
+  };
+  return mentorPayload;
+}

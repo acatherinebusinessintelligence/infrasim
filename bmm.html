@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laboratorio BMM | InfraSim</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body class="bmm-page">
+    <header class="home-nav">
+      <a class="home-brand" href="index.html" aria-label="Volver a InfraSim">
+        <span class="brand-mark"><img src="assets/uniminuto-logo.png" alt="UNIMINUTO"></span>
+        <span>
+          <strong>InfraSim</strong>
+          <small>Laboratorio BMM</small>
+        </span>
+      </a>
+      <nav class="home-links" aria-label="Navegacion del laboratorio">
+        <a href="index.html">Inicio</a>
+        <a href="#entrada">Laboratorio BMM</a>
+        <a href="#bmm-workspace">Exploracion</a>
+        <a href="#lectura-negocio">Tu lectura</a>
+        <a href="#revision-docente">Revision docente</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="entrada" class="bmm-hero">
+        <div class="bmm-hero-content">
+          <p class="eyebrow">Laboratorio BMM</p>
+          <h1>Entiende el negocio antes de tocar la infraestructura</h1>
+          <p class="hero-copy">
+            Antes de proponer una solucion tecnologica, necesitas comprender que busca la organizacion,
+            que capacidades sostienen su operacion, que factores la afectan y que riesgos pueden impedir
+            que alcance sus objetivos.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#bmm-workspace">Comenzar exploracion</a>
+            <a class="secondary-action" href="index.html">Volver a Inicio</a>
+          </div>
+          <p class="bmm-case-note">MVP IA: mentor socratico conectado al caso C03 - NovaPay Digital.</p>
+        </div>
+        <div class="bmm-flow" aria-label="Recorrido negocio infraestructura impacto">
+          <span>Negocio</span>
+          <span>Objetivos</span>
+          <span>Capacidades</span>
+          <span>Riesgos</span>
+          <span>Infraestructura</span>
+          <span>Impacto</span>
+        </div>
+      </section>
+
+      <section id="bmm-workspace" class="bmm-workspace">
+        <aside class="bmm-steps" aria-label="Etapas del laboratorio">
+          <button type="button" class="bmm-step active" data-stage="1">
+            <span>1</span>
+            Comprender el negocio
+          </button>
+          <button type="button" class="bmm-step" data-stage="2">
+            <span>2</span>
+            Identificar influencias
+          </button>
+          <button type="button" class="bmm-step" data-stage="6">
+            <span>3</span>
+            Conclusion propia
+          </button>
+        </aside>
+
+        <form id="bmm-form" class="bmm-panel">
+          <section class="bmm-stage active" data-stage-panel="1">
+            <p class="eyebrow">Etapa 1</p>
+            <h2>Comprender el negocio</h2>
+            <div class="bmm-case">
+              <strong>Situacion de negocio</strong>
+              <p>
+                La organizacion presta un servicio critico a sus clientes. Una interrupcion tecnologica
+                afecta directamente su operacion, la continuidad del servicio y la confianza de los usuarios.
+              </p>
+            </div>
+            <div class="bmm-question-grid">
+              <label>
+                Que resultado necesita mantener la organizacion?
+                <textarea name="business_goal" rows="3" required></textarea>
+              </label>
+              <label>
+                Quien depende de ese resultado?
+                <textarea name="affected_users" rows="3" required></textarea>
+              </label>
+              <label>
+                Que servicio o capacidad parece mas importante?
+                <textarea name="critical_service" rows="3" required></textarea>
+              </label>
+              <label>
+                Que ocurriria si ese servicio deja de funcionar?
+                <textarea name="business_impact" rows="3" required></textarea>
+              </label>
+            </div>
+            <label class="bmm-full-field">
+              En una frase, describe que necesita proteger o asegurar esta organizacion.
+              <textarea name="business_protection" rows="3"></textarea>
+            </label>
+            <div class="action-row">
+              <button type="button" class="primary-action" data-next-stage="2">Continuar</button>
+              <button type="button" class="secondary-action" data-ai-coach="business_goal">Desafiame</button>
+            </div>
+            <div class="ai-mentor-panel" data-ai-panel="business_goal" hidden></div>
+          </section>
+
+          <section class="bmm-stage" data-stage-panel="2">
+            <p class="eyebrow">Etapa 2</p>
+            <h2>Identificar influencias</h2>
+            <p class="hero-copy">
+              Selecciona los factores que mas pueden afectar el logro del objetivo. No busques una lista perfecta:
+              piensa en que presiona, limita o amenaza al negocio.
+            </p>
+            <div class="influence-grid">
+              <label><input type="checkbox" name="influencers" value="crecimiento de usuarios"><span>Crecimiento de usuarios</span></label>
+              <label><input type="checkbox" name="influencers" value="dependencia tecnologica"><span>Dependencia tecnologica</span></label>
+              <label><input type="checkbox" name="influencers" value="regulacion"><span>Regulacion</span></label>
+              <label><input type="checkbox" name="influencers" value="incidentes"><span>Incidentes</span></label>
+              <label><input type="checkbox" name="influencers" value="disponibilidad"><span>Disponibilidad</span></label>
+              <label><input type="checkbox" name="influencers" value="restricciones presupuestales"><span>Restricciones presupuestales</span></label>
+              <label><input type="checkbox" name="influencers" value="cambios del mercado"><span>Cambios del mercado</span></label>
+              <label><input type="checkbox" name="influencers" value="capacidades actuales"><span>Capacidades actuales</span></label>
+            </div>
+            <label class="bmm-full-field">
+              Cual de estos factores puede impedir con mayor fuerza que la organizacion logre su objetivo?
+              <select name="priority_risk">
+                <option value="">Selecciona un factor</option>
+                <option value="crecimiento de usuarios">Crecimiento de usuarios</option>
+                <option value="dependencia tecnologica">Dependencia tecnologica</option>
+                <option value="regulacion">Regulacion</option>
+                <option value="incidentes">Incidentes</option>
+                <option value="disponibilidad">Disponibilidad</option>
+                <option value="restricciones presupuestales">Restricciones presupuestales</option>
+                <option value="cambios del mercado">Cambios del mercado</option>
+                <option value="capacidades actuales">Capacidades actuales</option>
+              </select>
+            </label>
+            <label class="bmm-full-field">
+              Explica por que.
+              <textarea name="risk_reason" rows="4"></textarea>
+            </label>
+            <div class="bmm-reveal" id="influencer-reveal" hidden>
+              En BMM, este tipo de elementos se conocen como influenciadores: factores internos o externos
+              que condicionan lo que la organizacion puede lograr.
+            </div>
+            <div class="action-row">
+              <button type="button" class="secondary-action" data-next-stage="1">Volver</button>
+              <button type="button" class="primary-action" data-reveal-influencers>Ver lectura BMM</button>
+              <button type="button" class="primary-action" data-next-stage="6">Ir a conclusion</button>
+              <button type="button" class="secondary-action" data-ai-coach="influencers">Desafiame</button>
+            </div>
+            <div class="ai-mentor-panel" data-ai-panel="influencers" hidden></div>
+          </section>
+
+          <section id="lectura-negocio" class="bmm-stage" data-stage-panel="6">
+            <p class="eyebrow">Etapa 6</p>
+            <h2>Tu lectura del negocio</h2>
+            <p class="hero-copy">
+              Revisa los elementos que has construido y redacta tu propia conclusion. El sistema organiza tu lectura,
+              pero no la resuelve por ti.
+            </p>
+            <div id="bmm-summary" class="business-map" aria-live="polite"></div>
+            <label class="bmm-full-field">
+              Dependencia tecnologica que parece sostener el servicio critico.
+              <textarea name="technology_dependency" rows="3"></textarea>
+            </label>
+            <label class="bmm-full-field">
+              Redacta en 3-5 lineas tu conclusion sobre que debe proteger o posibilitar la infraestructura para apoyar al negocio.
+              <textarea name="student_conclusion" rows="6"></textarea>
+            </label>
+            <div class="bmm-final-reveal" id="bmm-final-reveal" hidden>
+              <h3>Lectura simplificada del BMM</h3>
+              <ul>
+                <li>Objetivos o resultados: Fines</li>
+                <li>Acciones o capacidades: Medios</li>
+                <li>Factores que afectan el contexto: Influenciadores</li>
+                <li>Politicas o restricciones: Directivas</li>
+                <li>Recursos disponibles: Capacidades</li>
+                <li>Amenazas e impactos: Riesgos</li>
+              </ul>
+            </div>
+            <article class="business-map-card">
+              <h3>Mapa de comprension del negocio</h3>
+              <div id="bmm-final-card" class="business-map"></div>
+            </article>
+            <p id="bmm-save-message" class="form-message" aria-live="polite"></p>
+            <div class="action-row">
+              <button type="button" class="secondary-action" data-next-stage="2">Volver</button>
+              <button type="button" class="primary-action" id="save-bmm">Guardar conclusion</button>
+              <button type="button" class="secondary-action" data-ai-coach="student_conclusion">Desafiame</button>
+              <a class="secondary-action" href="index.html">Volver a InfraSim</a>
+            </div>
+            <div class="ai-mentor-panel" data-ai-panel="student_conclusion" hidden></div>
+          </section>
+        </form>
+      </section>
+
+      <section id="revision-docente" class="bmm-review-section">
+        <div class="section-intro">
+          <p class="eyebrow">Modo docente</p>
+          <h2>Revision pedagogica del razonamiento</h2>
+          <p>
+            Este panel no califica. Resume la lectura del estudiante para validar si el laboratorio
+            ayuda a comprender el negocio antes de ampliar capacidades, riesgos e infraestructura.
+          </p>
+        </div>
+        <article class="bmm-review-card">
+          <div id="bmm-review-summary" class="business-map" aria-live="polite"></div>
+          <div class="action-row">
+            <button id="toggle-bmm-reasoning" type="button" class="secondary-action">Ver razonamiento completo</button>
+          </div>
+          <div id="bmm-full-reasoning" class="bmm-reasoning" hidden></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/bmm-lab.js"></script>
+  </body>
+</html>
